@@ -5,13 +5,34 @@
 help:
     @just --list --unsorted --justfile {{ source_file() }}
 
+env_file := ".env"
+env_file_template := """# Get your Discord token from the Discord dev console
+# THIS IS CONFIDENTIAL! DO NOT SHARE YOUR TOKEN!
+DISCORD_TOKEN=
+# Copy the guild ID (aka server ID) from a target private server below,
+# then uncomment the line.
+# If present, some commands become private to this guild only.
+# Otherwise, all commands are globally available for all guilds the bot is installed to.
+# DISCORD_GUILD="""
+
+# Check that a .env file is present, writing a template version if not.
+[no-exit-message]
+@ensure_env_file:
+    # Exist if the file already exists
+    ! {{ path_exists(env_file) }}
+    touch .env
+    echo "{{ env_file_template }}" > {{env_file}}
+
 
 # Setup dev environment
-[group("devtools")]
-bootstrap:
+[group("setup")]
+bootstrap: ensure_env_file
     pre-commit install
     uv sync
 
+# Run the bot
+up:
+    uv run disbot
 
 # Lint all project files using 'pre-commit run <hook_id>'. By default, runs all hooks.
 [group("devtools")]
