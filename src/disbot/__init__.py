@@ -7,7 +7,11 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN", "")
-GUILD = int(os.getenv("DISCORD_GUILD", ""))  # Ensure GUILD is an integer
+# The Guild or Server ID to constrain this bot to.
+# If not given, then the bot becomes globally active.
+GUILD_ID: int | None = int(os.getenv("DISCORD_GUILD", "")) or None
+MY_GUILD_ONLY = discord.Object(id=GUILD_ID) if GUILD_ID else None
+
 
 # Intents
 intents = discord.Intents.default()
@@ -18,7 +22,7 @@ bot = commands.Bot("!", intents=intents)
 @bot.tree.command(
     name="hello",
     description="Replies with Hello!",
-    guild=discord.Object(id=GUILD),
+    guild=MY_GUILD_ONLY,
 )
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message("Hello, how are you?")
@@ -28,7 +32,6 @@ async def hello(interaction: discord.Interaction):
 @bot.event
 async def on_ready():
     # guild = discord.Object(id=GUILD)
-    print(f"Commands synced to guild {GUILD}")
     print(f"{bot.user} is ready!")
 
 
