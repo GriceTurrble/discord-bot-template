@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Galen Rice", email = "griceturrble@protonmail.com" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "discord-py>=2.4.0",
     "python-dotenv>=1.0.1",
@@ -20,10 +20,24 @@ disbot = "disbot:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+# Uncomment below options for some detailed test output.
+# You may also want to add `pytest` and `pytest-cov` to your dependencies:
+#   uv add --dev pytest pytest-cov
+
+# [tool.pytest.ini_options]
+# addopts = """
+# --verbose
+# --cov=disbot
+# --no-cov-on-fail
+# --cov-branch
+# --cov-report=html:pytest_cov
+# """
+
+# Recommended ruff linting options
+# For more details see: https://docs.astral.sh/ruff/configuration/
 
 [tool.ruff]
-line-length = 100
-target-version = "py39"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = [

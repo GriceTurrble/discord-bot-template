@@ -50,3 +50,19 @@ prune_dead_branches:
     @git switch main
     @git fetch --prune
     @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
+
+
+# Want to add tests to this project?
+# Consider uncommenting the commands below for some simple test command runners.
+
+# # Run tests on Python 'version' with pytest 'args'
+# [group("testing")]
+# test-on version *args:
+#     @echo "{{ BG_GREEN }}>> Testing on {{version}}...{{ NORMAL }}"
+#     uv run --python {{version}} pytest {{args}}
+
+
+# # Run tests with pytest 'args' on latest Python
+# [group("testing")]
+# test *args:
+#     @just test-on 3.12 {{args}}
