@@ -1,0 +1,66 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  PRE_COMMIT_VERSION: "4.0.1"
+  PRE_COMMIT_PYTHON_VERSION: "3.12"
+
+jobs:
+  precommit:
+    name: Precommit checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Setup Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PRE_COMMIT_PYTHON_VERSION }}
+
+      - name: "Install pre-commit"
+        run: python -m pip install pre-commit==${{ env.PRE_COMMIT_VERSION }}
+        shell: bash
+
+      - run: python -m pip freeze --local
+        shell: bash
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ env.PRE_COMMIT_VERSION }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: "Run pre-commit checks"
+        run: pre-commit run --show-diff-on-failure --color=always
+        shell: bash
+
+  # test:
+  #   name: Python Tests
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       python-version:
+  #         # N-4 -> N versions, following Python support schedule
+  #         - "3.9"
+  #         - "3.10"
+  #         - "3.11"
+  #         - "3.12"
+  #         - "3.13"
+  #   steps:
+  #     - name: Checkout the code
+  #       uses: actions/checkout@v4
+
+  #     - name: Install uv
+  #       uses: astral-sh/setup-uv@v5
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
+
+  #     - name: Install project
+  #       run: uv sync --all-extras --dev
+
+  #     - name: Run tests
+  #       run: uv run pytest

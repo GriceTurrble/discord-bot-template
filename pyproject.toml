@@ -1,7 +1,7 @@
 [project]
 name = "disbot"
 version = "0.1.0"
-description = "Add your description here"
+description = "A simple Discord bot template."
 readme = "README.md"
 authors = [
     { name = "Galen Rice", email = "griceturrble@protonmail.com" }
