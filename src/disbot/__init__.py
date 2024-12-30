@@ -1,7 +1,7 @@
 import os
 
 import discord
-from discord import app_commands
+from discord.ext import commands
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -11,34 +11,30 @@ GUILD = int(os.getenv("DISCORD_GUILD", ""))  # Ensure GUILD is an integer
 
 # Intents
 intents = discord.Intents.default()
-client = discord.Client(intents=intents)
-
-# Command tree for slash commands
-tree = app_commands.CommandTree(client)
+bot = commands.Bot("!", intents=intents)
 
 
 # Define a simple slash command
-@tree.command(
+@bot.tree.command(
     name="hello",
     description="Replies with Hello!",
     guild=discord.Object(id=GUILD),
 )
 async def hello(interaction: discord.Interaction):
-    await interaction.response.send_message("Hello!")
+    await interaction.response.send_message("Hello, how are you?")
 
 
 # on_ready event should come after defining commands
-@client.event
+@bot.event
 async def on_ready():
-    guild = discord.Object(id=GUILD)
-    await tree.sync(guild=guild)  # Sync commands to the specific guild
+    # guild = discord.Object(id=GUILD)
     print(f"Commands synced to guild {GUILD}")
-    print(f"{client.user} is ready!")
+    print(f"{bot.user} is ready!")
 
 
 def main():
     """Run the bot"""
-    client.run(TOKEN)
+    bot.run(TOKEN)
 
 
 if __name__ == "__main__":
