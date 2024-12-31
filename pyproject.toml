@@ -15,6 +15,11 @@ dependencies = [
 [project.scripts]
 disbot = "disbot:main"
 
+[project.optional-dependencies]
+docs = [
+    "mkdocs-material>=9.5.49",
+]
+
 
 [build-system]
 requires = ["hatchling"]
