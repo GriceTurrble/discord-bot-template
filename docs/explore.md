@@ -1,4 +1,4 @@
-# Exploring your bot
+# Anatomy of a Discord Bot
 
 ## Startup
 
@@ -18,53 +18,224 @@ You should now be able to use the initial `/hello` command on your server, and g
 
 ## How, um... how does it work?
 
-Let's look at the source in detail, which is fairly small.
+To answer that, let's look at the source code for this bot, which isn't much.
 
-In fact, here's the whole thing (or, at least, what _was_ in `src/disbot/__init__.py` originally):
-
-<!--
-    This section uses the Snippets extension.
-
-    For details on this syntax, see:
-    https://facelessuser.github.io/pymdown-extensions/extensions/snippets/#snippets-notation
--->
-
-```py
---8<-- "docs/_original_src/full.py"
-```
-
-Let's look at this source in parts.
-
-### Environment variables
-
-Let's explore how environment variables are handled:
+In fact, here's the whole thing
+(at least, the original `src/disbot/__init__.py` from this template):
 
 ```py
 import os
-...
+
+import discord
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN", "")
 
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN", "")
+DISCORD_GUILD = int(os.getenv("DISCORD_GUILD", "0"))
+
+intents = discord.Intents.default()
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+
+@bot.tree.command(
+    name="hello",
+    description="Replies with Hello!",
+    guild=discord.Object(id=DISCORD_GUILD),
+)
+async def hello(interaction: discord.Interaction):
+    """Just say hello."""
+    await interaction.response.send_message("Hello, how are you?")
+
+
+@bot.event
+async def on_ready():
+    print(f"{bot.user} is ready!")
+
+
+def main():
+    """Run the bot."""
+    bot.run(DISCORD_TOKEN)
+
+
+if __name__ == "__main__":
+    main()
 ```
 
-This uses the [`python-dotenv`](https://pypi.org/project/python-dotenv/) package. The function `load_dotenv()` automatically reads our `.env` file, populating environment variables with its contents.
+The source code may seem complex,
+especially for newcomers to Discord bots, Python, or programming in general.
+Let's look at each part the above code in more detail, one piece at a time.
 
-If you followed the [setup instructions](index.md), you may have a `.env` file with the following in it:
+### Environment variable handling
+
+Per the [Twelve-Factor App method](https://12factor.net/),
+we prefer to [store config in the environment](https://12factor.net/config).
+This means all parts of the _configuration_ of the app -
+including any secrets like our Discord app token and which server/guild to connect to -
+should be separate from the _code_ of that app.
+This reduces the possibility of accidentally committing a token to a public repo,
+as well as making it easier to start the app with a different configuration
+without needing to make changes to the actual code of the app.
+
+Now, remember our `.env` file created during the [bootstrap step](index.md#bootstrap) in setup?
+It may look something like this:
 
 ```sh
-# .env
-DISCORD_TOKEN=superSecretTokenValue12345
+DISCORD_TOKEN=superSecretTokenValue12345 #(1)
+DISCORD_GUILD=678910
 ```
 
-When `load_dotenv` is called, the environment variable `DISCORD_TOKEN` is populated with the string value `"superSecretTokenValue12345"`. We can then read the value of this variable using [`os.getenv()`](https://docs.python.org/3/library/os.html#os.getenv):
+1. If this is your real token value, please contact Discord support and tell them something is very, very wrong.
+
+Now have a look at this section of our code:
 
 ```py
-TOKEN = os.getenv("DISCORD_TOKEN", "")  #(1)
-# "superSecretTokenValue12345"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN", "") #(1)
+DISCORD_GUILD = int(os.getenv("DISCORD_GUILD", "0"))
 ```
 
-1.  The second argument is the _default value_ in case the environment variable is missing.
+1. This second argument is a default value, returned if the environment variable is not present at all.
+   You can read this as "return the value of `DISCORD_TOKEN` if it is present, otherwise return an empty string".
 
-_To be continued_
+   If this default were missing, it would return `None`.
+   It may still be useful to use `None` in some contexts, of course.
+
+   Or, maybe you want the whole program to crash if the environment variable is missing
+   (yes, sometimes that's a good thing!).
+   In which case, consider simply calling `os.environ["KEY"]`, which will throw an exception
+   if that environment variable is missing.
+
+The `load_dotenv()` function
+(from the [`python-dotenv`](https://pypi.org/project/python-dotenv/) package)
+reads the contents of that `.env` file.
+Each line is parsed into an [environment variable](https://en.wikipedia.org/wiki/Environment_variable)
+in the form `name=value`.
+
+Next, [`os.getenv()`](https://docs.python.org/3/library/os.html#os.getenv)
+can be used to pull a given value from the environment.
+In our case, we want to grab our `DISCORD_TOKEN` and our `DISCORD_GUILD` values,
+storing these in variables
+
+!!! info "One option out of many"
+`load_dotenv()` is not required for `os.getenv()` to function;
+the former is simply a helper method for loading the `.env` file's contents.
+You could just as easily set these environment variables in other ways,
+such as on the command line when running the program:
+
+    ```sh
+    # Set an environment variable inline when starting the program:
+    DISCORD_GUILD=678910 uv run disbot
+
+    # Setting a variable ahead of time with `export`:
+    export DISCORD_GUILD=678910
+    uv run disbot
+    ```
+
+    Explore your use case and decide how you want these values set in your own environment.
+
+### Defining the bot
+
+Next we come to this bit of code, which creates our `bot` object:
+
+```py
+# Recall where these imports came from:
+import discord
+from discord.ext import commands
+
+intents = discord.Intents.default()
+bot = commands.Bot(command_prefix="!", intents=intents)
+```
+
+#### Intents
+
+The `intents` parameter is used to define
+[Gateway Intents](https://discordpy.readthedocs.io/en/stable/intents.html)
+for our bot.
+These allow a bot to subscribe to specific events and ignore others.
+
+Exactly _which_ Intents you need for your bot is outside the scope of this document.
+For now, we just set the
+[default](https://discordpy.readthedocs.io/en/stable/api.html#discord.Intents.default).
+
+#### Command prefix
+
+The
+[`command_prefix`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html#discord.ext.commands.Bot.command_prefix),
+as the name implies, is the prefix expected for commands assigned to this bot.
+For instance, if we have a command called `foo` with a prefix of `!`,
+the bot will respond when `!foo` is at the start a user's message.
+
+### Adding a slash command
+
+Now let's get to the good part: an actual command!
+
+```py
+@bot.tree.command(
+    name="hello",
+    description="Replies with Hello!",
+    guild=discord.Object(id=DISCORD_GUILD),
+)
+async def hello(interaction: discord.Interaction):
+    """Just say hello."""
+    await interaction.response.send_message("Hello, how are you?")
+```
+
+Most simple commands can take this form,
+where a [coroutine](https://realpython.com/async-io-python/)
+is defined to handle the logic of our command,
+decorated by a helper function to register it with the bot
+and give it some useful metadata.
+
+In this case, we are adding a command to the bot's
+[command tree](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.app_commands.CommandTree)
+(found at the attribute `bot.tree`)
+by using its
+[`@command` decorator](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.app_commands.CommandTree.command).
+We give the command a `name`, which is the name used to invoke it in a Discord chat channel;
+a helpful `description` to describe that command;
+and, optionally, a `guild` (server) to add this command to.
+
+The command coroutine (the `async def` function we define) takes an
+[`Interaction`](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.Interaction)
+object,
+which gives us access to information about the message that sent this command to our bot
+(its author, the channel it was sent in, the guild that channel belongs to, and so on).
+
+We use this interaction to create a `response`
+(which is of type
+[`InteractionResponse`](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.InteractionResponse))
+back to the user who sent this command, using the
+[`send_message`](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.InteractionResponse.send_message)
+method to send a simple text message back.
+
+That's a lengthy explanation for a pretty simple interaction ("it responds 'Hello, how are you?'"),
+but those details open the door to many possibilities:
+
+- responding with a message that can contain one or more
+  [embeds](https://discordpy.readthedocs.io/en/stable/api.html#discord.Embed),
+  [files](https://discordpy.readthedocs.io/en/stable/api.html#discord.File),
+  or even a [poll](https://discordpy.readthedocs.io/en/stable/api.html#discord.Poll).
+- editing a previous message that was sent
+- adding a reaction to a post
+- checking the roles of a user to see if they are permitted to use this command
+
+Using the `.response` attribute of the interaction is not even required.
+I invite you to explore the `Interaction` object and its associated attributes in more detail
+to discover what you might want to do with your bot command.
+
+### Adding a non-slash command
+
+TBD, and need to update the code to match
+
+### Events
+
+TBD
+
+### Starting the bot
+
+TBD

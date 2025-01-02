@@ -87,7 +87,7 @@ DISCORD_TOKEN=superSecretTokenValue12345
     You may want to keep a copy of the token value in a password manager like (1Password or Bitwarden),
     but otherwise it should _never_ be committed to your git repo!
 
-    The `.env` file containing that secret remain ignored (via [`.gitignore`](.gitignore)),
+    The `.env` file containing that secret remain ignored (via `.gitignore`),
     and you should _only_ use the `DISCORD_TOKEN` environment variable to access it temporarily
     (be wary of any `print()` or `logging` calls that may expose it, as well!).
 
