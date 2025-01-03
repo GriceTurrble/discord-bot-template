@@ -417,6 +417,40 @@ for more details on this behavior, how to use a variable number of parameters, a
 
 ### Running the bot
 
-TBD
+Finally, we have the part that actually starts our bot.
+Without it, the program would _define_ the bot and these commands just fine,
+but then it would immediately shut down, doing nothing!
+
+Starting the bot is a simple matter of calling
+[`bot.run`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html#discord.ext.commands.Bot.run)
+with our `DISCORD_TOKEN` passed in to authenticate it.
+In our template, we have a little extra wrapped around that call:
+
+```py
+def main():
+    """Run the bot."""
+    bot.run(DISCORD_TOKEN)
+    print("Shutting down.")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+- The `main()` function - not a coroutine! - is our entrypoint for the program.
+  It's not required for any Python to have a function by this name
+  (some other languages _do_ require a specific `main` method defined as the entrypoint),
+  but it's a solid pattern.
+- `if __name__ == "__main__":`, if you're unfamiliar with it,
+  is a guard statement that prevents some code from running automatically if this module is ever imported.
+  There's a great explanation for the use of this guard in [this SO answer](https://stackoverflow.com/a/419185).
+  We use it here as the point where `main()` is actually being _called_, in order to start the program.
+- `bot.run()` starts the event loop in discord.py, connecting to the Discord API
+  and handling sessions, authentication, etc.
+  Within our `main()` function, the control flow mostly stays inside this line of code.
+- Whenever the bot shuts down
+  (such as when you press ++ctrl+c++ in the terminal to stop it),
+  the event loop in `bot.run` exits, and the last line, `print("Shutting down")`,
+  will finally run. After this, the program exits naturally.
 
 [Discord Developer Portal]: https://discord.com/developers/applications
