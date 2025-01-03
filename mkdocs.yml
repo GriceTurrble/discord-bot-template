@@ -1,5 +1,5 @@
 site_name: DisBot
-repo_name: griceturrble/disbot
+repo_name: GriceTurrble/DisBot
 repo_url: https://github.com/griceturrble/disbot
 theme:
   name: material
@@ -7,7 +7,37 @@ theme:
     repo: fontawesome/brands/github
   features:
     - content.code.annotate
+    - navigation.footer
     - toc.integrate
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+copyright: Copyright &copy; 2024 - present Galen Rice
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/griceturrble/
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/griceturrble.bsky.social
 
 plugins:
   - search
