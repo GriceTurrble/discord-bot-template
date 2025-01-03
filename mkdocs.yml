@@ -11,7 +11,7 @@ nav:
 
 markdown_extensions:
   - toc:
-      permalink: true
+      permalink: "#"
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
