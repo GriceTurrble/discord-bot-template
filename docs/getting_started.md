@@ -70,8 +70,10 @@ head there now and make one!
 
 ### Setup intents and permissions
 
-To get your bot using slash commands is relatively simple.
-Getting it to use message content for other types of commands is slightly more complex,
+Setting up slash commands is relatively simple.
+In fact, very few, if any, of the following steps are necessary if your bot only uses slash commands.
+
+Using message content for other types of commands is slightly more complex,
 requiring extra permission settings in the portal _and_ in the code.
 
 We've got you covered on the code side (as explained more in [Anatomy of a Discord Bot](explore.md)).
@@ -138,6 +140,9 @@ DISCORD_TOKEN=superSecretTokenValue12345
     and you should _only_ use the `DISCORD_TOKEN` environment variable to access it temporarily
     (be wary of any `print()` or `logging` calls that may expose it, as well!).
 
+    If your bot token is ever leaked to someone who should not have it,
+    head back to the Developer Portal and reset that token right away to invalidate their access.
+
 ## Starting the bot
 
 Once all the setup steps are completed,
@@ -151,6 +156,12 @@ $ uv run disbot
 2024-12-30 16:31:27 INFO     discord.gateway Shard ID None has connected to Gateway (Session ID: ...).
 Logged in as my-bot#1234 (ID: ...)
 ```
+
+You should then be able to test the `/hello` and `!whatsup` commands
+(configured in the original template source)
+in one of the channels of your server:
+
+![The test bot responding to /hello slash command](imgs/example-disbot-hello.png)
 
 [Discord Developer Portal]: https://discord.com/developers/applications
 [just]: https://just.systems/
