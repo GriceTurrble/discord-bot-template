@@ -36,27 +36,36 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN", "")
 DISCORD_GUILD = int(os.getenv("DISCORD_GUILD", "0"))
 
 intents = discord.Intents.default()
+intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-
-@bot.tree.command(
-    name="hello",
-    description="Replies with Hello!",
-    guild=discord.Object(id=DISCORD_GUILD),
-)
-async def hello(interaction: discord.Interaction):
-    """Just say hello."""
-    await interaction.response.send_message("Hello, how are you?")
 
 
 @bot.event
 async def on_ready():
-    print(f"{bot.user} is ready!")
+    print(f"Logged in as {bot.user} (ID: {bot.user.id})")
+
+
+@bot.tree.command(
+    description="Replies to /hello",
+    guild=discord.Object(id=DISCORD_GUILD),
+)
+async def hello(interaction: discord.Interaction):
+    """Just say hello."""
+    print("Responding to /hello")
+    await interaction.response.send_message("Hello, how's it going?")
+
+
+@bot.command(description="Replies to !whatsup")
+async def whatsup(ctx):
+    """Just say hello."""
+    print("Responding to !whatsup")
+    await ctx.send("Nothing much")
 
 
 def main():
     """Run the bot."""
     bot.run(DISCORD_TOKEN)
+    print("Shutting down.")
 
 
 if __name__ == "__main__":
@@ -78,7 +87,7 @@ This reduces the possibility of accidentally committing a token to a public repo
 as well as making it easier to start the app with a different configuration
 without needing to make changes to the actual code of the app.
 
-Now, remember our `.env` file created during the [bootstrap step](index.md#bootstrap) in setup?
+Now, remember our `.env` file created during the [bootstrap step](index.md#bootstrap-environment) in setup?
 It may look something like this:
 
 ```sh
@@ -148,6 +157,7 @@ import discord
 from discord.ext import commands
 
 intents = discord.Intents.default()
+intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 ```
 
@@ -158,9 +168,18 @@ The `intents` parameter is used to define
 for our bot.
 These allow a bot to subscribe to specific events and ignore others.
 
-Exactly _which_ Intents you need for your bot is outside the scope of this document.
-For now, we just set the
-[default](https://discordpy.readthedocs.io/en/stable/api.html#discord.Intents.default).
+The [default intents](https://discordpy.readthedocs.io/en/stable/api.html#discord.Intents.default)
+provide most of the events you need, but not those considered "privileged",
+such as presence and message content.
+This is why we are explicitly setting `intents.message_content = True` above,
+so that the bot is able to read the contents of a message in order to know
+whether it should respond to a command from one.
+
+!!! note
+
+    You must *also* set the Message Content intent within the
+    [Discord Developer portal]
+    As shown in the [permissions setup](index.md#setup-intents-and-permissions),
 
 #### Command prefix
 
@@ -176,13 +195,13 @@ Now let's get to the good part: an actual command!
 
 ```py
 @bot.tree.command(
-    name="hello",
-    description="Replies with Hello!",
+    description="Replies to /hello",
     guild=discord.Object(id=DISCORD_GUILD),
 )
 async def hello(interaction: discord.Interaction):
     """Just say hello."""
-    await interaction.response.send_message("Hello, how are you?")
+    print("Responding to /hello")
+    await interaction.response.send_message("Hello, how's it going?")
 ```
 
 Most simple commands can take this form,
@@ -213,7 +232,7 @@ back to the user who sent this command, using the
 [`send_message`](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.InteractionResponse.send_message)
 method to send a simple text message back.
 
-That's a lengthy explanation for a pretty simple interaction ("it responds 'Hello, how are you?'"),
+That's a lengthy explanation for a pretty simple interaction ("it responds 'Hello, how's it going?'"),
 but those details open the door to many possibilities:
 
 - responding with a message that can contain one or more
