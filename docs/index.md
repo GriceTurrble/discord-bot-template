@@ -9,7 +9,7 @@ making your own Discord bot that responds to Slash Commands:
 
 ![The test bot responding to /hello slash command](imgs/example-disbot-hello.png)
 
-...or prefixed commands:
+...or standard message commands:
 
 ![The test bot responding to !whatsup command](imgs/example-disbot-whatsup.png)
 

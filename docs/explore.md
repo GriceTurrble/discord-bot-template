@@ -179,7 +179,7 @@ whether it should respond to a command from one.
 
 The
 [`command_prefix`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html#discord.ext.commands.Bot.command_prefix),
-as the name implies, is the prefix expected for commands assigned to this bot.
+as the name implies, is the prefix expected for standard commands to the bot.
 For instance, if we have a command called `foo` with a prefix of `!`,
 the bot will respond when `!foo` is at the start a user's message.
 
@@ -314,12 +314,12 @@ We can simply add a new argument to our command and update the logic a bit, like
     description="Replies to /hello",
     guild=discord.Object(id=DISCORD_GUILD),
 )
-- async def hello(interaction: discord.Interaction):
-+ async def hello(interaction: discord.Interaction, name: str):
+-async def hello(interaction: discord.Interaction):
++async def hello(interaction: discord.Interaction, name: str):
     """Just say hello."""
     print("Responding to /hello")
--     await interaction.response.send_message(f"Hello, how are you?")
-+     await interaction.response.send_message(f"Hello {name}, how are you?")
+-   await interaction.response.send_message(f"Hello, how are you?")
++   await interaction.response.send_message(f"Hello {name}, how are you?")
 ```
 
 Now, simply shut down the running bot with `Ctrl-C` and restart it
@@ -343,9 +343,77 @@ which it then uses in the response:
 
 ![result of /hello command with name parameter Stanley](imgs/updated-slash-name-sent.png)
 
-### Adding a prefixed command
+### Adding a standard command
 
-TBD, and need to update the code to match
+Bots can read message content from a chat channel, then interpret a message as a "command".
+While Slash Commands are a relatively newer addition to Discord,
+these types of "standard" commands have been around for a long time.
+And, while they are less discoverable than Slash Commands,
+they do not require syncing a tree with the server before the bot can respond.
+Instead, the bot just watches all messages to see if one is a "command" that it should act on.
+
+In discord.py, writing one of these commands is about as simple as writing a Slash Command:
+
+```py
+@bot.command(description="Replies to !whatsup")
+async def whatsup(ctx):
+    """Just say hello."""
+    print("Responding to !whatsup")
+    await ctx.send("Nothing much")
+```
+
+Recall that our bot is configured with the `command_prefix` value of `"!"`.
+This means the bot will look for messages that _start_ with the phrase `!whatsup`
+(matching the name of the coroutine above) and respond by sending a message to the channel:
+
+![The test bot responding to !whatsup command](imgs/example-disbot-whatsup.png)
+
+Notice how this is a simple message sent to the channel
+(using [`ctx.send`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html?highlight=context#discord.ext.commands.Context.send)),
+not a reply to the user sending the command.
+To do that, we can use
+[`ctx.reply`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html?highlight=context#discord.ext.commands.Context.reply)
+instead:
+
+```diff
+@bot.command(description="Replies to !whatsup")
+async def whatsup(ctx):
+    """Just say hello."""
+    print("Responding to !whatsup")
+-   await ctx.send("Nothing much")
++   await ctx.reply("Nothing much")
+```
+
+![The test bot responding to !whatsup command with a reply](imgs/example-disbot-whatsup-reply.png)
+
+As with Slash Commands, these commands can also take arguments:
+
+```diff
+@bot.command(description="Replies to !whatsup")
+-async def whatsup(ctx):
++async def whatsup(ctx, name: str):
+    """Just say hello."""
+    print("Responding to !whatsup")
+-   await ctx.reply("Nothing much")
++   await ctx.reply(f"Nothing much, {name}!")
+```
+
+However, where the Slash Command arguments create a container for the user to enter the arg value,
+standard commands will split the message on spaces and pass individual words to different args:
+
+![The test bot responding to !whatsup command with a reply and name arg](imgs/example-disbot-whatsup-reply-drop-args.png)
+
+Check the [discord.py Command Parameters doc](https://discordpy.readthedocs.io/en/stable/ext/commands/commands.html#parameters)
+for more details on this behavior, how to use a variable number of parameters, and so on.
+
+!!! tip "Tip of the iceberg"
+
+    As with Slash Commands, there are many more possibilities for what a command can do.
+    The `ctx` parameter
+    (a [`Context`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html#discord.ext.commands.Context) instance)
+    contains loads of information about the user sending the command, the channel where it was sent,
+    the contents of their [message](https://discordpy.readthedocs.io/en/stable/api.html#discord.Message),
+    whether they were replying to someone else, and so on.
 
 ### Running the bot
 
