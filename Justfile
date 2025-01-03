@@ -66,3 +66,7 @@ prune_dead_branches:
 # [group("testing")]
 # test *args:
 #     @just test-on 3.12 {{args}}
+
+[group("docs")]
+docs:
+    uv run mkdocs serve
