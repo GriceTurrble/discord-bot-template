@@ -17,7 +17,7 @@ DISCORD_TOKEN=
 
 # Check that a .env file is present, writing a template version if not.
 [no-exit-message]
-@ensure_env_file:
+@ensure-env-file:
     # Exist if the file already exists
     ! {{ path_exists(env_file) }}
     touch .env
@@ -26,7 +26,7 @@ DISCORD_TOKEN=
 
 # Setup dev environment
 [group("setup")]
-bootstrap: ensure_env_file
+bootstrap: ensure-env-file
     pre-commit install
     uv sync
 
@@ -45,9 +45,8 @@ GREP_TARGET := "\\\\[gone\\\\]"
 
 # Switches to `main` branch, then prunes local branches deleted from remote.
 [group("git")]
-prune_dead_branches:
+prune-dead-branches:
     @echo "{{ BG_GREEN }}>> 'Removing dead branches...{{ NORMAL }}"
-    @git switch main
     @git fetch --prune
     @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
 
