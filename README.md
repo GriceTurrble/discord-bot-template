@@ -1,4 +1,4 @@
-# Discord bot template
+# DisBot: simple Discord bot template
 
 A simple template for a [Discord](https://discord.com/) bot using [discord.py](https://discordpy.readthedocs.io/en/stable/).
 
