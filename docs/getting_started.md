@@ -144,11 +144,11 @@ DISCORD_TOKEN=superSecretTokenValue12345
 ## Starting the bot
 
 Once all the setup steps are completed,
-you can start the bot using `uv run disbot`
+you can start the bot using `uv run thebot`
 (or its Justfile alias, `just up`):
 
 ```sh
-$ uv run disbot
+$ uv run thebot
 2024-12-30 16:31:26 WARNING  discord.ext.commands.bot Privileged message content intent is missing, commands may not work as expected.
 2024-12-30 16:31:26 INFO     discord.client logging in using static token
 2024-12-30 16:31:27 INFO     discord.gateway Shard ID None has connected to Gateway (Session ID: ...).
@@ -159,7 +159,7 @@ You should then be able to test the `/hello` and `!whatsup` commands
 (configured in the original template source)
 in one of the channels of your server:
 
-![The test bot responding to /hello slash command](imgs/example-disbot-hello.png)
+![The test bot responding to /hello slash command](imgs/example-bot-hello.png)
 
 [Discord Developer Portal]: https://discord.com/developers/applications
 [just]: https://just.systems/

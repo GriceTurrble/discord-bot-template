@@ -1,4 +1,4 @@
-# DisBot: simple Discord bot template
+# discord-bot-template
 
 A simple template for a [Discord](https://discord.com/) bot using [discord.py](https://discordpy.readthedocs.io/en/stable/).
 
@@ -86,11 +86,11 @@ A simple template for a [Discord](https://discord.com/) bot using [discord.py](h
 
    Paste this link into your browser, then follow Discord's authentication flow to invite the app to your server.
 
-6. Finally, start the bot using either `uv run disbot` or the Justfile alias, `just up`:
+6. Finally, start the bot using either `uv run thebot` or the Justfile alias, `just up`:
 
    ```sh
    $ just up
-   uv run disbot
+   uv run thebot
    2024-12-30 16:31:26 WARNING  discord.ext.commands.bot Privileged message content intent is missing, commands may not work as expected.
    2024-12-30 16:31:26 INFO     discord.client logging in using static token
    2024-12-30 16:31:27 INFO     discord.gateway Shard ID None has connected to Gateway (Session ID: ...).
@@ -99,7 +99,7 @@ A simple template for a [Discord](https://discord.com/) bot using [discord.py](h
 
 You should now be able to use the initial `/hello` command on your server, and get back a friendly response:
 
-![The test bot responding to /hello command](docs/imgs/example-disbot-hello.png)
+![The test bot responding to /hello command](docs/imgs/example-bot-hello.png)
 
 ## Contributing
 

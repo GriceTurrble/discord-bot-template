@@ -32,7 +32,7 @@ async def hello(interaction: discord.Interaction):
 
 @bot.command(description="Replies to !whatsup")
 async def whatsup(ctx):
-    """Just say hello."""
+    """Tell us what's up."""
     print("Responding to !whatsup")
     await ctx.send("Nothing much")
 
