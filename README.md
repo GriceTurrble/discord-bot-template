@@ -4,8 +4,10 @@ A simple template for a [Discord](https://discord.com/) bot using [discord.py](h
 
 ## Getting started
 
-1. Click "Use this template" (at top-right of the GitHub repo), then choose "Create a new repository",
+0. Click "Use this template" (at top-right of the GitHub repo), then choose "Create a new repository",
    so you can work on your own version of this bot on your account. 🙂
+
+1. Clone the project on your local machine.
 
 2. Install necessary tooling to work on this project.
 
