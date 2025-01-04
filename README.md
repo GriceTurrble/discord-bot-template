@@ -101,6 +101,10 @@ You should now be able to use the initial `/hello` command on your server, and g
 
 ![The test bot responding to /hello command](docs/imgs/example-bot-hello.png)
 
+You can also send a standard message command, `!whatsup`:
+
+![The test bot responding to !whatsup command](docs/imgs/example-bot-whatsup.png)
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
