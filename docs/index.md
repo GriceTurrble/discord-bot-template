@@ -1,4 +1,4 @@
-# Introduction
+# DisBot: simple Discord bot template
 
 [Use this template :material-github:](https://github.com/new?template_name=disbot&template_owner=GriceTurrble){ .md-button .md-button--primary }
 
