@@ -6,9 +6,7 @@ and your bot is running smoothly. Great!
 This doc goes into more detail about how discord.py bots do their thing,
 with an additional focus on the _why_ for some common software patterns.
 
-So...
-
-## How, um... how does it work?
+## So, how, um... how does it work?
 
 To answer that, let's look at the source code for this bot, which isn't much.
 
