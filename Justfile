@@ -32,7 +32,7 @@ bootstrap: ensure-env-file
 
 # Run the bot
 up:
-    uv run disbot
+    uv run thebot
 
 # Lint all project files using 'pre-commit run <hook_id>'. By default, runs all hooks.
 [group("devtools")]

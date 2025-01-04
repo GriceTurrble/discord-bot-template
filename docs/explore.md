@@ -11,7 +11,7 @@ with an additional focus on the _why_ for some common software patterns.
 To answer that, let's look at the source code for this bot, which isn't much.
 
 In fact, here's the whole thing
-(at least, the original `src/disbot/__init__.py` from this template):
+(at least, the original `src/discord_bot_template/__init__.py` contents):
 
 ```py
 import os
@@ -48,7 +48,7 @@ async def hello(interaction: discord.Interaction):
 
 @bot.command(description="Replies to !whatsup")
 async def whatsup(ctx):
-    """Just say hello."""
+    """Tell us what's up."""
     print("Responding to !whatsup")
     await ctx.send("Nothing much")
 
@@ -130,11 +130,11 @@ storing these in variables
 
     ```sh
     # Set an environment variable inline when starting the program:
-    DISCORD_GUILD=678910 uv run disbot
+    DISCORD_GUILD=678910 uv run thebot
 
     # Setting a variable ahead of time with `export`:
     export DISCORD_GUILD=678910
-    uv run disbot
+    uv run thebot
     ```
 
     Explore your use case and decide how you want these values set in your own environment.
@@ -280,7 +280,7 @@ in this case a simple
 [`send_message`](https://discordpy.readthedocs.io/en/stable/interactions/api.html#discord.InteractionResponse.send_message)
 call with the text `"Hello, how are you?"`:
 
-![The test bot responding to /hello slash command](imgs/example-disbot-hello.png)
+![The test bot responding to /hello slash command](imgs/example-bot-hello.png)
 
 !!! tip "Way more than just a text message"
 
@@ -321,7 +321,7 @@ We can simply add a new argument to our command and update the logic a bit, like
 ```
 
 Now, simply shut down the running bot with `Ctrl-C` and restart it
-(`uv run disbot` or `just up` again).
+(`uv run thebot` or `just up` again).
 This reconnects the bot with the Discord API and, in our case,
 calls `bot.tree.sync()` within the `on_ready` event,
 updating the server with the changes to our command.
@@ -355,7 +355,7 @@ In discord.py, writing one of these commands is about as simple as writing a Sla
 ```py
 @bot.command(description="Replies to !whatsup")
 async def whatsup(ctx):
-    """Just say hello."""
+    """Tell us what's up."""
     print("Responding to !whatsup")
     await ctx.send("Nothing much")
 ```
@@ -364,7 +364,7 @@ Recall that our bot is configured with the `command_prefix` value of `"!"`.
 This means the bot will look for messages that _start_ with the phrase `!whatsup`
 (matching the name of the coroutine above) and respond by sending a message to the channel:
 
-![The test bot responding to !whatsup command](imgs/example-disbot-whatsup.png)
+![The test bot responding to !whatsup command](imgs/example-bot-whatsup.png)
 
 Notice how this is a simple message sent to the channel
 (using [`ctx.send`](https://discordpy.readthedocs.io/en/stable/ext/commands/api.html?highlight=context#discord.ext.commands.Context.send)),
@@ -376,13 +376,13 @@ instead:
 ```diff
 @bot.command(description="Replies to !whatsup")
 async def whatsup(ctx):
-    """Just say hello."""
+    """Tell us what's up."""
     print("Responding to !whatsup")
 -   await ctx.send("Nothing much")
 +   await ctx.reply("Nothing much")
 ```
 
-![The test bot responding to !whatsup command with a reply](imgs/example-disbot-whatsup-reply.png)
+![The test bot responding to !whatsup command with a reply](imgs/example-bot-whatsup-reply.png)
 
 As with Slash Commands, these commands can also take arguments:
 
@@ -390,7 +390,7 @@ As with Slash Commands, these commands can also take arguments:
 @bot.command(description="Replies to !whatsup")
 -async def whatsup(ctx):
 +async def whatsup(ctx, name: str):
-    """Just say hello."""
+    """Tell us what's up."""
     print("Responding to !whatsup")
 -   await ctx.reply("Nothing much")
 +   await ctx.reply(f"Nothing much, {name}!")
@@ -399,7 +399,7 @@ As with Slash Commands, these commands can also take arguments:
 However, where the Slash Command arguments create a container for the user to enter the arg value,
 standard commands will split the message on spaces and pass individual words to different args:
 
-![The test bot responding to !whatsup command with a reply and name arg](imgs/example-disbot-whatsup-reply-drop-args.png)
+![The test bot responding to !whatsup command with a reply and name arg](imgs/example-bot-whatsup-reply-drop-args.png)
 
 Check the [discord.py Command Parameters doc](https://discordpy.readthedocs.io/en/stable/ext/commands/commands.html#parameters)
 for more details on this behavior, how to use a variable number of parameters, and so on.

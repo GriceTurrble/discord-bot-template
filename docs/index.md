@@ -1,12 +1,12 @@
-# DisBot: simple Discord bot template
+# Discord bot template
 
-[Use this template :material-github:](https://github.com/new?template_name=disbot&template_owner=GriceTurrble){ .md-button .md-button--primary }
+[Use this template :material-github:](https://github.com/new?template_name=discord-bot-template&template_owner=GriceTurrble){ .md-button .md-button--primary }
 
-**DisBot** is a simple template for a [Discord] bot using [discord.py].
+A simple template for a [Discord] bot using [discord.py].
 
 All you need to get started is:
 
-1. Clone [the DisBot repo](https://github.com/GriceTurrble/disbot);
+1. Clone [the template repo](https://github.com/GriceTurrble/discord-bot-template);
 2. Follow the [setup instructions](getting_started.md), adding your own Discord bot token and guild/server ID; and
 3. Start the bot!
 
@@ -14,11 +14,11 @@ When running and installed in your server,
 you get a simple bot that can respond to
 a Slash Command, `/hello`:
 
-![The test bot responding to /hello slash command](imgs/example-disbot-hello.png)
+![The test bot responding to /hello slash command](imgs/example-bot-hello.png)
 
 ...and a standard message command, `!whatsup`:
 
-![The test bot responding to !whatsup command](imgs/example-disbot-whatsup.png)
+![The test bot responding to !whatsup command](imgs/example-bot-whatsup.png)
 
 After that, you can check out
 [Anatomy of a Discord Bot](explore.md)

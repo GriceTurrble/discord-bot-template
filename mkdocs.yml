@@ -1,6 +1,6 @@
-site_name: DisBot
-repo_name: GriceTurrble/DisBot
-repo_url: https://github.com/griceturrble/disbot
+site_name: discord-bot-template
+repo_name: GriceTurrble/discord-bot-template
+repo_url: https://github.com/griceturrble/discord-bot-template
 theme:
   name: material
   icon:
