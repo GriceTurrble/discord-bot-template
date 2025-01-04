@@ -69,3 +69,7 @@ prune-dead-branches:
 [group("docs")]
 docs:
     uv run mkdocs serve
+
+[group("docs")]
+build sitedir="site":
+    uv run mkdocs build -d {{sitedir}}
