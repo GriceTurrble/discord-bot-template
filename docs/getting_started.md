@@ -5,8 +5,8 @@
 Before you can run the bot, you will need to:
 
 1. Install a few essential tools locally;
-2. Create your bot application in [Discord Developer portal]
-3. Grab your bot's Discord token;
+2. Create your bot application in [Discord Developer portal];
+3. Grab your bot's Discord token; and
 4. Invite the bot to your server.
 
 Let's explore these in detail below:
