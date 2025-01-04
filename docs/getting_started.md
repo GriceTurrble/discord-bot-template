@@ -9,8 +9,6 @@ Before you can run the bot, you will need to:
 3. Grab your bot's Discord token; and
 4. Invite the bot to your server.
 
-Let's explore these in detail below:
-
 ## Install tools
 
 To start, install necessary tooling to work on this project.
