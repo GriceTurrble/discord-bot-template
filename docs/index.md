@@ -4,18 +4,26 @@
 
 **DisBot** is a simple template for a [Discord] bot using [discord.py].
 
-You can use the template and this documentation together to learn more about
-making your own Discord bot that responds to Slash Commands:
+All you need to get started is:
+
+1. Clone [the DisBot repo](https://github.com/GriceTurrble/disbot);
+2. Follow the [setup instructions](getting_started.md), adding your own Discord bot token and guild/server ID; and
+3. Start the bot!
+
+When running and installed in your server,
+you get a simple bot that can respond to
+a Slash Command, `/hello`:
 
 ![The test bot responding to /hello slash command](imgs/example-disbot-hello.png)
 
-...or standard message commands:
+...and a standard message command, `!whatsup`:
 
 ![The test bot responding to !whatsup command](imgs/example-disbot-whatsup.png)
 
-Ready to [get started](getting_started.md) setting up the bot?
-
-Or you can [explore](explore.md) the fine details.
+After that, you can check out
+[Anatomy of a Discord Bot](explore.md)
+for an in-depth explanation of how the bot works.
+Use this as a guide to making your own bot that can do whatever you want!
 
 ## About this template
 
