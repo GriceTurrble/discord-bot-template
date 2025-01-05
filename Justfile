@@ -26,9 +26,10 @@ DISCORD_TOKEN=
 
 # Setup dev environment
 [group("setup")]
-bootstrap: ensure-env-file
+bootstrap:
+    -just ensure-env-file
     pre-commit install
-    uv sync
+    uv sync --all-extras
 
 # Run the bot
 up:
