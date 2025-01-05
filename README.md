@@ -27,16 +27,14 @@ A simple template for a [Discord](https://discord.com/) bot using [discord.py](h
 
    Most other tooling uses the [`Justfile`](Justfile) recipes or standard `uv` commands.
 
-   > [!note] > `uv` can handle Python installations for you, if you want it to.
+   > **Note**: `uv` can handle Python installations for you, if you want it to.
    > Otherwise, you can install **Python 3.12** yourself from [python.org](https://python.org/downloads),
    > or use a version manager like [pyenv](https://github.com/pyenv/pyenv).
 
 3. Bootstrap your environment using `just bootstrap`.
 
-   > [!note]
-   > Run `just help` (or `just` by itself) to display help documentation about the commands available in the Justfile.
-   >
-   > For more details on Just, refer to the [Just manual](https://just.systems/man/en/).
+    > **Note**: Run `just help` (or `just` by itself) to display help documentation about the commands available in the Justfile.
+    > For more details on Just, refer to the [Just manual](https://just.systems/man/en/).
 
    This performs a few helpful steps, such as `pre-commit install` to get pre-commit hooks set up for you,
    and `uv sync` to initialize your Python virtual environment
@@ -64,8 +62,7 @@ A simple template for a [Discord](https://discord.com/) bot using [discord.py](h
    DISCORD_TOKEN=superSecretTokenValue12345
    ```
 
-   > [!warning]
-   > Discord bot tokens are confidential, and should never be shared with anyone!
+   > ⚠️ **Warning**: Discord bot tokens are confidential, and should never be shared with anyone!
    > You may want to keep a copy of the token value in a password manager like (1Password or Bitwarden),
    > but otherwise it should _never_ be committed to your git repo!
    >
