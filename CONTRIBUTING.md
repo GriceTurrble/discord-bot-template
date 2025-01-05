@@ -37,7 +37,8 @@ This project currently has no tests to run, but they can be added easily
 
 The documentation site is built using [Material for MkDocs].
 Dependencies to build the site locally are included in the `docs` optional dependencies.
-A simple `uv sync` command will _not_ install these dependencies automatically.
+A simple `uv sync` command will _not_ install these dependencies automatically
+(in fact, it will actually **uninstall** them!).
 
 To ensure these dependencies are installed,
 use one of the following:
