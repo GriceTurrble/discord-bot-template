@@ -2,13 +2,28 @@
 
 [Use this template :material-github:](https://github.com/new?template_name=discord-bot-template&template_owner=GriceTurrble){ .md-button .md-button--primary }
 
-A simple template for a [Discord] bot using [discord.py].
+A simple template for a [Discord] bot using [discord.py],
+providing the essential tooling and basic building blocks
+for writing your own custom Discord bot in minutes,
+with minimal bells and whistles attached.
 
-All you need to get started is:
+The template includes two "hello world"-style commands as a demonstration.
+Use these as a basis for adding new commands for your own special bot.
+
+Further, the documentation (that you are reading right now!)
+serves as a guide for newcomers to understand all the inner workings of a Discord bot,
+some best-practice patterns to follow,
+and links to pertinent documentation on discord.py itself.
+
+:material-robot: Happy botting!
+
+## Running the demo bot
+
+To start the demo bot:
 
 1. Clone [the template repo](https://github.com/GriceTurrble/discord-bot-template);
-2. Follow the [setup instructions](getting_started.md), adding your own Discord bot token and guild/server ID; and
-3. Start the bot!
+2. Follow the [setup instructions](getting_started.md), adding your own Discord bot token and Guild/Server ID; and
+3. Start the bot with `uv run thebot` (or `just up` as an alias).
 
 When running and installed in your server,
 you get a simple bot that can respond to
@@ -32,7 +47,7 @@ It does not include other features that might make a bot more useful,
 such as any integrations with databases, APIs, etc.
 These are left as an exercise for the reader.
 
-The template and this website are also not affiliated with either [Discord] or [discord.py].
+The template and this documentation are not affiliated with either [Discord] or the [discord.py] package.
 Please use the discord.py docs as a more complete reference for this package,
 and please direct any Discord-related issues to [Discord support].
 
@@ -46,7 +61,7 @@ and to programming in general.
 
 I am no expert in Discord bots or the discord.py package in particular,
 but I love teaching folks new things.
-I wrote this small template and its documentation from scratch,
+I wrote this template and its documentation from scratch,
 both to expand my own knowledge about it
 and, hopefully, to share those learnings with others.
 

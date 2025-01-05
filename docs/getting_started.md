@@ -161,11 +161,11 @@ in one of the channels of your server:
 
 ![The test bot responding to /hello slash command](imgs/example-bot-hello.png)
 
-[Discord Developer Portal]: https://discord.com/developers/applications
-[just]: https://just.systems/
+[discord developer portal]: https://discord.com/developers/applications
+[homebrew]: https://brew.sh/
 [just manual]: https://just.systems/man/en/
+[just]: https://just.systems/
 [pre-commit]: https://pre-commit.com/
-[uv]: https://docs.astral.sh/uv/
-[Homebrew]: https://brew.sh/
-[python.org]: https://python.org/downloads
 [pyenv]: https://github.com/pyenv/pyenv
+[python.org]: https://python.org/downloads
+[uv]: https://docs.astral.sh/uv/
