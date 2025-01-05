@@ -9,10 +9,8 @@ env_file := ".env"
 env_file_template := """# Get your Discord token from the Discord dev console
 # THIS IS CONFIDENTIAL! DO NOT SHARE YOUR TOKEN!
 DISCORD_TOKEN=
-# Copy the guild ID (aka server ID) from a target private server below,
-# then uncomment the line.
-# If present, some commands become private to this guild only.
-# Otherwise, all commands are globally available for all guilds the bot is installed to.
+# Copy the guild ID (aka server ID) of your server,
+# then uncomment the line below.
 # DISCORD_GUILD="""
 
 # Check that a .env file is present, writing a template version if not.
