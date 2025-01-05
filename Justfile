@@ -17,10 +17,15 @@ DISCORD_TOKEN=
 [no-exit-message]
 @ensure-env-file:
     # Exist if the file already exists
-    ! {{ path_exists(env_file) }}
-    touch .env
-    echo "{{ env_file_template }}" > {{env_file}}
+    ! {{path_exists(env_file)}}
+    just write-template-env-file
 
+# [over]write the .env file using a template (WARNING, YOU MAY LOSE LOCAL CREDENTIALS THIS WAY)
+[confirm("Are you sure you want to overwrite the .env file (any stored credentials will be erased)? [y/N]")]
+@write-template-env-file:
+    rm {{env_file}}
+    touch {{env_file}}
+    echo "{{env_file_template}}" > {{env_file}}
 
 # Setup dev environment
 [group("setup")]
