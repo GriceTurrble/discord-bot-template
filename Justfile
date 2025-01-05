@@ -17,15 +17,16 @@ DISCORD_TOKEN=
 [no-exit-message]
 @ensure-env-file:
     # Exist if the file already exists
-    ! {{path_exists(env_file)}}
+    ! {{ path_exists(env_file) }}
     just write-template-env-file
 
 # [over]write the .env file using a template (WARNING, YOU MAY LOSE LOCAL CREDENTIALS THIS WAY)
 [confirm("Are you sure you want to overwrite the .env file (any stored credentials will be erased)? [y/N]")]
 @write-template-env-file:
-    rm {{env_file}}
-    touch {{env_file}}
-    echo "{{env_file_template}}" > {{env_file}}
+    -rm {{ env_file }}
+    touch {{ env_file }}
+    echo "{{ env_file_template }}" > {{ env_file }}
+    echo "{{ GREEN }}>> Env file '{{ env_file }}' (re)generated{{ NORMAL }}"
 
 # Setup dev environment
 [group("setup")]
@@ -41,7 +42,7 @@ up:
 # Lint all project files using 'pre-commit run <hook_id>'. By default, runs all hooks.
 [group("devtools")]
 lint hook_id="":
-    pre-commit run {{hook_id}} --all-files
+    pre-commit run {{ hook_id }} --all-files
 
 
 # The result should be `\\[ \\]`, but we need to escape those slashes again here to make it work:
@@ -50,7 +51,7 @@ GREP_TARGET := "\\\\[gone\\\\]"
 # Prunes local branches deleted from remote.
 [group("git")]
 prune-dead-branches:
-    @echo "{{ BG_GREEN }}>> 'Removing dead branches...{{ NORMAL }}"
+    @echo "{{ GREEN }}>> 'Removing dead branches...{{ NORMAL }}"
     @git fetch --prune
     @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
 
@@ -62,8 +63,8 @@ alias prune := prune-dead-branches
 # # Run tests on Python 'version' with pytest 'args'
 # [group("testing")]
 # test-on version *args:
-#     @echo "{{ BG_GREEN }}>> Testing on {{version}}...{{ NORMAL }}"
-#     uv run --python {{version}} pytest {{args}}
+#     @echo "{{ GREEN }}>> Testing on {{ version }}...{{ NORMAL }}"
+#     uv run --python {{ version }} pytest {{ args }}
 
 
 # # Run tests with pytest 'args' on latest Python
@@ -79,4 +80,4 @@ docs-serve:
 # Build production version of mkdocs site to 'sitedir' directory
 [group("docs")]
 docs-build sitedir="site":
-    uv run mkdocs build -d {{sitedir}}
+    uv run mkdocs build -d {{ sitedir }}
