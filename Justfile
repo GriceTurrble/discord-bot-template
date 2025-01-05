@@ -51,7 +51,7 @@ GREP_TARGET := "\\\\[gone\\\\]"
 # Prunes local branches deleted from remote.
 [group("git")]
 prune-dead-branches:
-    @echo "{{ GREEN }}>> 'Removing dead branches...{{ NORMAL }}"
+    @echo "{{ GREEN }}>> Removing dead branches...{{ NORMAL }}"
     @git fetch --prune
     @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
 
