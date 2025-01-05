@@ -43,7 +43,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install project dependencies
-        run: uv sync --all-extras --dev
+        run: uv sync --all-groups
 
       - name: Build site via mkdocs
         run: uv run mkdocs build -d ${{ env.SITE_DIR }}

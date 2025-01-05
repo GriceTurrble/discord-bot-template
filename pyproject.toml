@@ -15,7 +15,7 @@ dependencies = [
 [project.scripts]
 thebot = "discord_bot_template:main"
 
-[project.optional-dependencies]
+[dependency-groups]
 docs = [
     "mkdocs-material>=9.5.49",
 ]

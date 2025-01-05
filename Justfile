@@ -32,7 +32,7 @@ DISCORD_TOKEN=
 bootstrap:
     -just ensure-env-file
     pre-commit install
-    uv sync --all-extras
+    uv sync --all-groups
 
 # Run the bot
 up:
@@ -47,13 +47,14 @@ lint hook_id="":
 # The result should be `\\[ \\]`, but we need to escape those slashes again here to make it work:
 GREP_TARGET := "\\\\[gone\\\\]"
 
-# Switches to `main` branch, then prunes local branches deleted from remote.
+# Prunes local branches deleted from remote.
 [group("git")]
 prune-dead-branches:
     @echo "{{ BG_GREEN }}>> 'Removing dead branches...{{ NORMAL }}"
     @git fetch --prune
     @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
 
+alias prune := prune-dead-branches
 
 # Want to add tests to this project?
 # Consider uncommenting the commands below for some simple test command runners.
@@ -70,10 +71,12 @@ prune-dead-branches:
 # test *args:
 #     @just test-on 3.12 {{args}}
 
+# Serve mkdocs site locally with auto-reloading
 [group("docs")]
-docs:
+docs-serve:
     uv run mkdocs serve
 
+# Build production version of mkdocs site to 'sitedir' directory
 [group("docs")]
-build sitedir="site":
+docs-build sitedir="site":
     uv run mkdocs build -d {{sitedir}}

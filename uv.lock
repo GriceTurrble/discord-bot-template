@@ -133,7 +133,7 @@ dependencies = [
     { name = "python-dotenv" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 docs = [
     { name = "mkdocs-material" },
 ]
@@ -141,9 +141,11 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "discord-py", specifier = ">=2.4.0" },
-    { name = "mkdocs-material", marker = "extra == 'docs'", specifier = ">=9.5.49" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
 ]
+
+[package.metadata.requires-dev]
+docs = [{ name = "mkdocs-material", specifier = ">=9.5.49" }]
 
 [[package]]
 name = "discord-py"
