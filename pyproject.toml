@@ -6,8 +6,10 @@ readme = "README.md"
 authors = [
     { name = "Galen Rice", email = "griceturrble@protonmail.com" }
 ]
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12"
 dependencies = [
+    # TODO: this can be removed when upgrading to discord-py 2.5+
+    "audioop-lts ; python_full_version >= '3.13'",
     "discord-py>=2.4.0",
     "python-dotenv>=1.0.1",
 ]

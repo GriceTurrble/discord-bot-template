@@ -32,8 +32,24 @@ Most other tooling uses the `Justfile` recipes or standard `uv` commands.
 !!! note
 
     `uv` can handle Python installations for you, if you want it to.
-    Otherwise, you can install **Python 3.12** yourself from [python.org],
+    Otherwise, you can install Python yourself from [python.org],
     or use a version manager like [pyenv].
+
+### :construction: A note on Python versions
+
+This template supports Python 3.12 and up,
+however `discord.py` v2.4 (the latest at time of writing this)
+does not officially support 3.13.
+This is because `discord.py` depends on a low-level module,
+[`audioop`](https://docs.python.org/3/library/audioop.html),
+which was deprecated and removed from the Python standard library (stdlib) in 3.13.
+
+The template includes a dependency on
+[`audioop-lts`](https://pypi.org/project/audioop-lts/)
+as a fallback when on Python 3.13+ specifically.
+`discord.py` v2.5 will include the same dependency in the near future.
+Once they release their update,
+this template will be updated to remove the fallback dependency.
 
 ## Bootstrap environment
 
