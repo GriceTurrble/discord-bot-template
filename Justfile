@@ -71,6 +71,7 @@ alias prune := prune-dead-branches
 # [group("testing")]
 # test *args:
 #     @just test-on 3.12 {{args}}
+#     @just test-on 3.13 {{args}}
 
 # Serve mkdocs site locally with auto-reloading
 [group("docs")]
