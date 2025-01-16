@@ -1,7 +1,7 @@
 # Workflow syntax: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 # Triggers: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 
-name: release
+name: GitHub Pages deploy
 on:
   workflow_dispatch:
   push:
