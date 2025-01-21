@@ -1,6 +1,6 @@
 [project]
 name = "discord-bot-template"
-version = "0.1.0"
+version = "0.2.0"
 description = "A simple Discord bot template."
 readme = "README.md"
 authors = [

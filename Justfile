@@ -1,9 +1,40 @@
 # Just tools to work on the project.
 # https://just.systems/
 
+### START COMMON ###
+import? 'common.just'
+
 # Show these help docs
 help:
     @just --list --unsorted --justfile {{ source_file() }}
+
+# Pull latest common justfile recipes to local repo
+[group("commons")]
+sync-commons:
+    -rm common.just
+    curl -H 'Cache-Control: no-cache, no-store' \
+        https://raw.githubusercontent.com/griceturrble/common-project-files/main/common.just?cachebust={{ uuid() }} > common.just
+### END COMMON ###
+
+# bootstrap the dev environment
+bootstrap:
+    just sync-commons
+    just bootstrap-commons
+    -just ensure-env-file
+    just sync-uv
+
+
+# Sync uv dependencies in all groups
+sync-uv:
+    uv sync --all-groups
+
+alias sync := sync-uv
+
+
+# Run the bot
+up:
+    uv run thebot
+
 
 env_file := ".env"
 env_file_template := """# Get your Discord token from the Discord dev console
@@ -27,35 +58,6 @@ DISCORD_TOKEN=
     touch {{ env_file }}
     echo "{{ env_file_template }}" > {{ env_file }}
     echo "{{ GREEN }}>> Env file '{{ env_file }}' (re)generated{{ NORMAL }}"
-
-# Setup dev environment
-[group("setup")]
-bootstrap:
-    -just ensure-env-file
-    pre-commit install
-    uv sync --all-groups
-
-# Run the bot
-up:
-    uv run thebot
-
-# Lint all project files using 'pre-commit run <hook_id>'. By default, runs all hooks.
-[group("devtools")]
-lint hook_id="":
-    pre-commit run {{ hook_id }} --all-files
-
-
-# The result should be `\\[ \\]`, but we need to escape those slashes again here to make it work:
-GREP_TARGET := "\\\\[gone\\\\]"
-
-# Prunes local branches deleted from remote.
-[group("git")]
-prune-dead-branches:
-    @echo "{{ GREEN }}>> Removing dead branches...{{ NORMAL }}"
-    @git fetch --prune
-    @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
-
-alias prune := prune-dead-branches
 
 # Want to add tests to this project?
 # Consider uncommenting the commands below for some simple test command runners.
