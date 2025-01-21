@@ -14,3 +14,4 @@ wheels/
 .ruff_cache
 .pytest_cache
 site/
+.DS_Store
