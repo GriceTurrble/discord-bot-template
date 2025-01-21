@@ -10,38 +10,12 @@ on:
       - reopened
       - ready_for_review
 
-env:
-  PRE_COMMIT_VERSION: "4.0.1"
-  PRE_COMMIT_PYTHON_VERSION: "3.12"
-
 jobs:
   precommit:
-    name: Precommit checks
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
-
-      - name: "Setup Python"
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PRE_COMMIT_PYTHON_VERSION }}
-
-      - name: "Install pre-commit"
-        run: python -m pip install pre-commit==${{ env.PRE_COMMIT_VERSION }}
-        shell: bash
-
-      - run: python -m pip freeze --local
-        shell: bash
-
-      - uses: actions/cache@v4
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-${{ env.PRE_COMMIT_VERSION }}|${{ hashFiles('.pre-commit-config.yaml') }}
-
-      - name: "Run pre-commit checks"
-        run: pre-commit run --show-diff-on-failure --color=always
-        shell: bash
+      - uses: actions/checkout@v4
+      - uses: griceturrble/precommit-checks-action@v1
 
   # test:
   #   name: Python Tests
