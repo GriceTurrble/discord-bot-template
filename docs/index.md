@@ -1,7 +1,6 @@
 # Discord bot template
 
-[Use this template :material-github:](https://github.com/new?template_name=discord-bot-template&template_owner=GriceTurrble){
-.md-button .md-button--primary }
+[Use this template :material-github:](https://github.com/new?template_name=discord-bot-template&template_owner=GriceTurrble){ .md-button .md-button--primary }
 
 A simple template for a [Discord] bot using [discord.py], providing the essential tooling and basic
 building blocks for writing your own custom Discord bot in minutes, with minimal bells and whistles
