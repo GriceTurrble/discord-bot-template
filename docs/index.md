@@ -29,7 +29,7 @@ When running and installed in your server, you get a simple bot that can respond
 
 ![The test bot responding to /hello slash command](imgs/example-bot-hello.png)
 
-...and a standard message command, `!whatsup`:
+...and a prefix command, `!whatsup`:
 
 ![The test bot responding to !whatsup command](imgs/example-bot-whatsup.png)
 
