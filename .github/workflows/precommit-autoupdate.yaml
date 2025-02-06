@@ -1,25 +1,15 @@
 name: pre-commit autoupdate
 
-# NOTE: you must manually enable PR creation from GitHub Actions for this to work
-# In repo Settings, under Actions > General,
-# click "Allow GitHub Actions to create and approve pull requests".
-# See: https://github.com/griceturrble/precommit-autoupdate-action?tab=readme-ov-file#permissions
-
 on:
-  # To call the workflow on-demand
   workflow_dispatch:
-  # To have it run automatically on a schedule:
   schedule:
-    # Example: every Monday at 11AM UTC (~6AM US/Eastern)
-    - cron: "0 11 * * 1"
+    # Every Mon,Wed,Fri 11AM UTC (~6AM US/Eastern)
+    - cron: "0 11 * * 1,3,5"
 
 jobs:
   pre-commit-autoupdate:
     permissions:
-      # The workflow must be able to write changes
-      # to `.pre-commit-config.yaml`:
       contents: write
-      # It must also have permission to create PRs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +17,4 @@ jobs:
 
       - uses: griceturrble/precommit-autoupdate-action@v1
         with:
-          # PRs are created in draft mode to allow CI to run after you click Ready for Review manually.
-          # See: https://github.com/griceturrble/precommit-autoupdate-action?tab=readme-ov-file#permissions
-          create_as_draft: true
+          pr_title: "[Draft] pre-commit autoupdate"
