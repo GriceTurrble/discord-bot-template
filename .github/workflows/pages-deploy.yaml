@@ -50,7 +50,7 @@ jobs:
 
       # Upload our site content, to be pulled by the deploy step
       - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ env.SITE_DIR }}
 
