@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: griceturrble/precommit-checks-action@v1
+      - uses: griceturrble/precommit-checks-action@v2
 
   # test:
   #   name: Python Tests
