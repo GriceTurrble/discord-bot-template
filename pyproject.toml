@@ -58,7 +58,7 @@ select = [
     "PERF", # performance
     "PL",   # Pylint
     "S",    # flake8-bandit (security checks)
-    "UP",   # pyupgrade (pre-commit hook for pyupgrade should fix most)
+    "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
 
@@ -66,9 +66,6 @@ select = [
 # (after selecting a set of rules like 'E', ignore subsets of those rules here)
 ignore = [
     # Selected ignore rules
-    "E203",    # whitespace-before-punctuation
-    "F401",    # unused-import (pycln will remove these)
-    "F811",    # redefined-while-unused
     "PLR0913", # too-many-arguments
     "S101",    # assert (usage of the assert statement)
     "S113",    # request-without-timeout
