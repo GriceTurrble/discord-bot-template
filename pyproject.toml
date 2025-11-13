@@ -65,12 +65,6 @@ select = [
 ignore = [
     # Selected ignore rules
     "PLR0913", # too-many-arguments
-    "S101",    # assert (usage of the assert statement)
-    "S113",    # request-without-timeout
-    "S602",    # subprocess-popen-with-shell-equals-true
-    "S603",    # subprocess-without-shell-equals-true
-    "S607",    # start-process-with-partial-path
-    "S608",    # hardcoded-sql-expression
     # Rules recommended to avoid when using Ruff formatter
     "COM812", # missing-trailing-comma
     "COM819", # prohibited-trailing-comma
@@ -108,4 +102,5 @@ unfixable = [
     "F811",    # redefined-while-unused
     "N",       # pep8-naming
     "PLR2004", # magic-value-comparison
+    "S101",    # assert (usage of the assert statement)
 ]
