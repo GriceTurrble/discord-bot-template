@@ -8,7 +8,7 @@ with minimal bells and whistles attached.
 The template includes two "hello world"-style commands as a demonstration.
 Use these as a basis for adding new commands for your own special bot.
 
-Further, the [documentation](https://griceturrble.github.io/discord-bot-template/)
+Further, the [documentation](https://discord-bot-template.griceturrble.com/)
 serves as a guide for newcomers to understand all the inner workings of a Discord bot,
 some best-practice patterns to follow,
 and links to pertinent documentation on discord.py itself.
@@ -23,7 +23,7 @@ and links to pertinent documentation on discord.py itself.
 > That way, you can work on your own version of the bot, make changes to it,
 > and commit those changes to your own repo.
 
-Refer to the [Getting Started page](https://griceturrble.github.io/discord-bot-template/getting_started/)
+Refer to the [Getting Started page](https://discord-bot-template.griceturrble.com/getting_started/)
 for details on starting up the demo bot defined in this template.
 
 The high-level steps include:
