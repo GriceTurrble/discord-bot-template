@@ -15,6 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: griceturrble/precommit-autoupdate-action@v3
+      - uses: griceturrble/precommit-autoupdate-action@v4
         with:
           pr_title: "[Draft] pre-commit autoupdate"
