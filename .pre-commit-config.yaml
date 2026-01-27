@@ -22,7 +22,7 @@ repos:
       - id: python-check-blanket-noqa
       - id: python-no-eval
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.14.13"
+    rev: "v0.14.14"
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -34,7 +34,7 @@ repos:
     hooks:
       - id: uv-lock
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: "v3.8.0"
+    rev: "v3.8.1"
     hooks:
       - id: prettier
         types_or: [markdown, json, yaml, html]
