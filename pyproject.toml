@@ -17,7 +17,7 @@ thebot = "discord_bot_template:main"
 
 [dependency-groups]
 docs = [
-    "mkdocs-material>=9.7.0",
+    "mkdocs-material>=9.7.6",
 ]
 
 
